@@ -1,4 +1,4 @@
-1. Clone the repo and get dependencies via composer
+1.Hello mama Clone the repo and get dependencies via composer
 
 	```
 	git clone --depth 1 --branch master https://github.com/phpish/shopify_app-skeleton.git new_prj
