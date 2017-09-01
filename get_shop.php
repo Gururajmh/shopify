@@ -11,7 +11,7 @@
 	try
 	{
 		# Making an API request can throw an exception
-		$shop = $shopify('GET /admin/orders.json&status= any);
+		$shop = $shopify('GET /admin/orders.json&status= any');
 		print_r($shop);
 
     $connect=mysqli_connect("localhost","root","","shopify");
