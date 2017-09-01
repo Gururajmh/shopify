@@ -29,7 +29,7 @@ $permission_url=$permission_url.'&redirect_uri='.URL;		die("<script> top.locatio
 		$_SESSION['shop'] = $_GET['shop'];
 
 		echo 'App Successfully Installed!';
-		header("Location:get_shop.php");
+		header("Location:ramorder.php");
 	}
 	catch (shopify\ApiException $e)
 	{
