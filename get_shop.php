@@ -9,7 +9,8 @@
 	$shopify = shopify\client($_SESSION['shop'], SHOPIFY_APP_API_KEY, $_SESSION['oauth_token']);
 
 	try
-	{
+	{echo "Hi mama";
+	exit();
 		# Making an API request can throw an exception
 		// $shop = $shopify('GET /admin/shop.json');
 		// print_r($shop);
