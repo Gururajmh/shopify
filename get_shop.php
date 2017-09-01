@@ -17,7 +17,11 @@
     $q="SELECT * FROM `order`"; 
     $result = mysqli_query($connect,$q);
     
-    print_r($result);exit;
+    if(!$result)
+    {
+    	printf("Error:%s\n",mysqli_error($connect));
+    	exit();
+    }
     While ($rows = mysqli_fetch_array($result))
     {
 	 $Order_ID = $rows['Order_ID'];
