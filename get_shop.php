@@ -29,6 +29,9 @@
     $query = mysql_query("SELECT * FROM order");
 
     // fetch the result / convert resulte in to array 
+    $rows = mysql_fetch_array($query);
+    print_r($rows);
+    exit;
 
     WHILE ($rows = mysql_fetch_array($query)):
 
