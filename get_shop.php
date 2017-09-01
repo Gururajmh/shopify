@@ -16,7 +16,7 @@
     $connect=mysqli_connect("localhost","root","","shopify");
     $q="SELECT * FROM `order`"; 
     $result = mysqli_query($connect,$q);
-    
+    print_r($connect);
     if(!$result)
     {
     	printf("Error:%s\n",mysqli_error($connect));
