@@ -11,8 +11,40 @@
 	try
 	{
 		# Making an API request can throw an exception
-		$shop = $shopify('GET /admin/shop.json');
-		print_r($shop);
+		// $shop = $shopify('GET /admin/shop.json');
+		// print_r($shop);
+    $dbhost = 'localhost';
+    $dbuser = 'root';
+    $dbpass = '';
+    $connect=mysql_connect("localhost","root","");
+
+    // connect to databsase 
+
+    mysql_select_db("shopify",);
+
+       // enter code here
+
+    // query the database 
+
+    $query = mysql_query("SELECT * FROM order");
+
+    // fetch the result / convert resulte in to array 
+
+    WHILE ($rows = mysql_fetch_array($query)):
+
+       $Order_ID = $rows['Order_ID'];
+       $Date = $rows['Date'];
+       $Customer_Name = $rows['Customer_Name'];
+       $Payment_Status = $rows['Payment_Status'];
+       $Fulfillment_Status = $rows['Fulfillment_Status'];
+       $Phone_Number = $rows['Phone_Number'];
+       $Email_ID = $rows['Email_ID'];
+       $Total = $rows['Total'];
+
+
+       echo "$Order_ID<br>$Date<br>$Customer_Name<br>$Payment_Status<br>$Fulfillment_Status<br>$Phone_Number<br>$Email_ID<br>$Total<br><br>";
+
+       endwhile;
 	}
 	catch (shopify\ApiException $e)
 	{
