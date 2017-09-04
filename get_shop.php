@@ -14,7 +14,7 @@
 		$shop = $shopify('GET /admin/orders.json?status=any');
 		print_r($shop);
 
-    $connect=mysqli_connect("localhost","root","","shopify");
+    $connect=mysqli_connect("127.0.0.1","root","","shopify");
     $q="SELECT * FROM `order`"; 
     $result = mysqli_query($connect,$q);
     print_r($connect);
