@@ -1,27 +1,123 @@
- <?php 
- $connect=mysqli_connect("herennowidentifier.clns7dnu70de.us-west-2.rds.amazonaws.com;port=3306","herennowdb","herennowpass","guru");
-   print_r($connect);exit;
-    $q="SELECT * FROM `order`"; 
-    $result = mysqli_query($connect,$q);
-    
-    if(!$result)
-    {
-    	printf("Error:%s\n",mysqli_error($connect));
-    	exit();
+<?php
+        session_start();
+
+        require __DIR__.'/vendor/autoload.php';
+        use phpish\shopify;
+
+        require __DIR__.'/conf.php';
+
+        $shopify = shopify\client($_SESSION['shop'], SHOPIFY_APP_API_KEY, $_SESS                                                                                                                ION['oauth_token']);
+
+        ?>
+<form action="" method="post">
+        Enter mobile number
+        <input type="text" name="mobile"> OR
+        Enter E-mail address
+        <input type="text" name="email">
+        <br>
+        <input type="submit" name="submit" value="Check order">
+        </form>
+
+
+        <?php
+        try
+        {
+
+                # Making an API request can throw an exception
+                $shop = $shopify('GET /admin/shop.json');
+                echo "welcome ".$shop['name'];echo '<br><br>';
+                $products = $shopify('GET /admin/products.json', array('publishe                                                                                                                d_status'=>'published'));
+                $orders = $shopify('GET /admin/orders.json?status=any');
+                $order_count = $shopify('GET /admin/orders/count.json');
+                $ordeer_filed = $shopify('GET /admin/orders.json?fields=id,name,                                                                                                                customer,email,total-price,created_at,phone,fulfillments&status=any');
+
+                if(isset($_POST['submit']))
+                {
+
+                        $mobile = $_POST['mobile'];
+                        $email = $_POST['email'];
+                        echo $mobile;echo "<br>";
+                        echo $email;
+
+                }
+                echo "<table style='align:center'>";
+                echo "<th>Order ID</th>";echo "<th>Name</th>";echo "<th>Email</t                                                                                                                h>";echo "<th>Total Price</th>";echo "<th>Date</th>";echo "<th>Phone</th>";
+                foreach ($orders as $order) {
+                        $st = strcmp($email,$order['email']);
+                        if($st==0){
+                        echo "<tr>";
+                                echo "<td align='center'>";print_r($order['name'                                                                                                                ]);echo "</td>";
+                                echo "<td align='center'>";print_r($order['custo                                                                                                                mer']['first_name']);echo " ";print_r($order['customer']['last_name']);echo "</t                                                                                                                d>";
+                                echo "<td align='center'>";print_r($order['email                                                                                                                ']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['total                                                                                                                _price']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['creat                                                                                                                ed_at']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['shipp                                                                                                                ing_address']['phone']);echo "</td>";
+                        echo "</tr>";
+                        }
+
+                }
+                echo "</table>";
+//               $connec=mysqli_connect("herennowidentifier.clns7dnu70de.us-west                                                                                                                -2.rds.amazonaws                                                                                                                                                                                                                                .com:3306","herennowdb","herenno                                                                                                                wpass","test");
+//               print_r($connec);
+//               echo "error";exit;
+//     $q2="INSERT INTO `orders` (`order_id`, `name`, `email`, `mobile_number`)                                                                                                                 VALUES ('1', 'ka', 'ka', '1');";
+// if($connect->query($q2))
+//     print_r("inserted");exit;
+                try {
+                        $hostname='herennowidentifier.clns7dnu70de.us-west-2.rds                                                                                                                .amazonaws.com;port=3306';
+$username='herennowdb';
+$password='herennowpass';
+    $dbh = new PDO("mysql:host=$hostname;dbname=guru",$username,$password);
+
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== add th                                                                                                                is line
+    echo 'Connected to Database<br/>';
+
+//     $sql = "SELECT * FROM orders";
+//    // print_r($dbh);exit;
+//     echo "order id";echo "name";
+// foreach ($dbh->query($sql) as $row)
+//     {
+//     echo $row["order_id"] ." - ". $row["name"] ."<br/>";
+//     }
+
+
+    $dbh = null;
     }
-    While ($rows = mysqli_fetch_array($result))
+catch(PDOException $e)
     {
-	 $Order_ID = $rows['Order_ID'];
-       $Date = $rows['Date'];
-       $Customer_Name = $rows['Customer Name'];
-       $Payment_Status = $rows['Payment_Status'];
-       $Fulfillment_Status = $rows['Fulfillment_Status'];
-       $Phone_Number = $rows['Phone_Number'];
-       $Email_ID = $rows['Email_ID'];
-       $Total = $rows['Total'];
-      
+    echo $e->getMessage();
+    }
+//                      $dbhost = 'herennowidentifier.clns7dnu70de.us-west-2.rds                                                                                                                .amazonaws.com';
+//  $dbport = '3306';
+//  $dbname = 'test';
+//  $charset = 'utf8' ;
 
+//  $dsn = "mysql:host={$dbhost};port={$dbport};dbname={$dbname};charset={$chars                                                                                                                et}";
+//  $username = 'herennowdb';
+//  $password = 'herennowpass';
+// print_r($dsn);exit;
+//  $pdo = new PDO($dsn, $username, $password);
+//  print_r($pdo);exit;
+//                      $link = mysqli_connect($dbhost, $username, $password, $d                                                                                                                bname, $dbport);
+//                      if (!$link) {
+//     printf("Error: %s\n", mysqli_error($link));
+//     exit();
+//                      print_r($link);exit;
 
-       echo "$Order_ID<br>$Date<br>$Customer_Name<br>$Payment_Status<br>$Fulfillment_Status<br>$Phone_Number<br>$Email_ID<br>$Total<br><br>";
+        }
+        catch (shopify\ApiException $e)
+        {
+                # HTTP status code was >= 400 or response contained the key 'err                                                                                                                ors'
+                echo $e;
+                print_r($e->getRequest());
+                print_r($e->getResponse());
+        }
+        catch (shopify\CurlException $e)
+        {
+                # cURL error
+                echo $e;
+                print_r($e->getRequest());
+                print_r($e->getResponse());
+        }
 
-       }
+?>
