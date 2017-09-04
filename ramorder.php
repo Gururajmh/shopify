@@ -6,7 +6,7 @@
 
         require __DIR__.'/conf.php';
 
-        $shopify = shopify\client($_SESSION['shop'], SHOPIFY_APP_API_KEY, $_SESS                                                                                                                ION['oauth_token']);
+        $shopify = shopify\client($_SESSION['shop'], SHOPIFY_APP_API_KEY, $_SESSION['oauth_token']);
 
         ?>
 <form action="" method="post">
@@ -41,17 +41,17 @@
 
                 }
                 echo "<table style='align:center'>";
-                echo "<th>Order ID</th>";echo "<th>Name</th>";echo "<th>Email</t                                                                                                                h>";echo "<th>Total Price</th>";echo "<th>Date</th>";echo "<th>Phone</th>";
+                echo "<th>Order ID</th>";echo "<th>Name</th>";echo "<th>Email</th>";echo "<th>Total Price</th>";echo "<th>Date</th>";echo "<th>Phone</th>";
                 foreach ($orders as $order) {
                         $st = strcmp($email,$order['email']);
                         if($st==0){
                         echo "<tr>";
-                                echo "<td align='center'>";print_r($order['name'                                                                                                                ]);echo "</td>";
-                                echo "<td align='center'>";print_r($order['custo                                                                                                                mer']['first_name']);echo " ";print_r($order['customer']['last_name']);echo "</t                                                                                                                d>";
-                                echo "<td align='center'>";print_r($order['email                                                                                                                ']);echo "</td>";
-                                echo "<td align='center'>";print_r($order['total                                                                                                                _price']);echo "</td>";
-                                echo "<td align='center'>";print_r($order['creat                                                                                                                ed_at']);echo "</td>";
-                                echo "<td align='center'>";print_r($order['shipp                                                                                                                ing_address']['phone']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['name']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['customer']['first_name']);echo " ";print_r($order['customer']['last_name']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['email']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['total_price']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['created_at']);echo "</td>";
+                                echo "<td align='center'>";print_r($order['shipping_address']['phone']);echo "</td>";
                         echo "</tr>";
                         }
 
@@ -64,13 +64,13 @@
 // if($connect->query($q2))
 //     print_r("inserted");exit;
                 try {
-                        $hostname='herennowidentifier.clns7dnu70de.us-west-2.rds                                                                                                                .amazonaws.com;port=3306';
-$username='herennowdb';
-$password='herennowpass';
-    $dbh = new PDO("mysql:host=$hostname;dbname=guru",$username,$password);
+                        $hostname='herennowidentifier.clns7dnu70de.us-west-2.rds.amazonaws.com;port=3306';
+                        $username='herennowdb';
+                        $password='herennowpass';
+                        $dbh = new PDO("mysql:host=$hostname;dbname=guru",$username,$password);
 
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== add th                                                                                                                is line
-    echo 'Connected to Database<br/>';
+                        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== add th is line
+                        echo 'Connected to Database<br/>';
 
 //     $sql = "SELECT * FROM orders";
 //    // print_r($dbh);exit;
@@ -104,7 +104,7 @@ catch(PDOException $e)
 //     exit();
 //                      print_r($link);exit;
 
-        }
+}
         catch (shopify\ApiException $e)
         {
                 # HTTP status code was >= 400 or response contained the key 'err                                                                                                                ors'
