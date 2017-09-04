@@ -1,5 +1,5 @@
  <?php 
- $connect=mysqli_connect("127.0.0.1","root","","shopify");
+ $connect=mysqli_connect("herennowidentifier.clns7dnu70de.us-west-2.rds.amazonaws.com;port=3306","herennowdb","herennowpass","guru");
     $q="SELECT * FROM `order`"; 
     $result = mysqli_query($connect,$q);
     print_r($connect);
