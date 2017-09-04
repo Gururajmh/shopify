@@ -1,8 +1,9 @@
  <?php 
  $connect=mysqli_connect("herennowidentifier.clns7dnu70de.us-west-2.rds.amazonaws.com;port=3306","herennowdb","herennowpass","guru");
+   print_r($connect);exit;
     $q="SELECT * FROM `order`"; 
     $result = mysqli_query($connect,$q);
-    print_r($connect);
+    
     if(!$result)
     {
     	printf("Error:%s\n",mysqli_error($connect));
