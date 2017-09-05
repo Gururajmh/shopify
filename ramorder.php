@@ -24,12 +24,11 @@
         {
 
                 # Making an API request can throw an exception
-                $shop = $shopify('GET /admin/shop.json');
-                echo "welcome ".$shop['name'];echo '<br><br>';
+                
                 $products = $shopify('GET /admin/products.json', array('publishe                                                                                                                d_status'=>'published'));
                 $orders = $shopify('GET /admin/orders.json?status=any');
                 $order_count = $shopify('GET /admin/orders/count.json');
-                $ordeer_filed = $shopify('GET /admin/orders.json?fields=id,name,                                                                                                                customer,email,total-price,created_at,phone,fulfillments&status=any');
+                $ordeer_filed = $shopify('GET /admin/orders.json?fields=id,name,customer,email,total-price,created_at,phone,fulfillments&status=any');
 
                 if(isset($_POST['submit']))
                 {
