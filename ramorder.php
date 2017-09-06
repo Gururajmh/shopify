@@ -30,7 +30,6 @@
                 $orders = $shopify('GET /admin/orders.json?status=any');
                 $order_count = $shopify('GET /admin/orders/count.json');
                 $ordeer_filed = $shopify('GET /admin/orders.json?fields=id,name,customer,email,total-price,created_at,phone,fulfillments&status=any');
-                print_r($orders);
 
                 if(isset($_POST['submit']))
                 {
