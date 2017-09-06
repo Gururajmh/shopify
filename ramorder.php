@@ -24,8 +24,9 @@
         {
 
                 # Making an API request can throw an exception
-                
-                $products = $shopify('GET /admin/products.json', array('publishe                                                                                                                d_status'=>'published'));
+                $shop = $shopify('GET /admin/shop.json');
+                echo "welcome ".$shop['name'];echo '<br><br>';
+                $products = $shopify('GET /admin/products.json', array('published_status'=>'published'));
                 $orders = $shopify('GET /admin/orders.json?status=any');
                 $order_count = $shopify('GET /admin/orders/count.json');
                 $ordeer_filed = $shopify('GET /admin/orders.json?fields=id,name,customer,email,total-price,created_at,phone,fulfillments&status=any');
@@ -123,3 +124,14 @@ catch(PDOException $e)
 <!-- Place this div where you want the tracking widget -->
 <div id="ship_oscan_main_content"></div>
 
+<?php
+$webhookContent = "";
+
+$webhook = fopen('php://input' , 'rb');
+while (!feof($webhook)) {
+    $webhookContent .= fread($webhook, 4096);
+}
+fclose($webhook);
+
+error_log($webhookContent);
+?>
