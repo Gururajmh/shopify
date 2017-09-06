@@ -121,6 +121,10 @@ catch(PDOException $e)
         }
   ?>
 <script>var osURL= 'https://shipway.in/orderscan?key=ZHJpNlJBR0Fpbm5SL0oxaDdmNXUxbTVKT0xMMk9NeVhZaG53ZjVsZ0R0QlZZTE84L3JwQzNTZXZaWVpQdlM5TjBuQkhGbjVrbWVPL0RwbmpvR1RzUHc9PQ==&layout=order_id';document.write('<scr'+'ipt type="text/JavaScript" src="https://shipway.in/orderscan/widget/widget.js"></scr'+'ipt>')</script>
+
+<!-- Place this div where you want the tracking widget -->
+<div id="ship_oscan_main_content"></div>
+
 <?php
 $webhookContent = "";
 
@@ -132,6 +136,3 @@ fclose($webhook);
 
 error_log($webhookContent);
 ?>
-<!-- Place this div where you want the tracking widget -->
-<div id="ship_oscan_main_content"></div>
-
